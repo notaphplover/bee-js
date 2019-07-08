@@ -1,0 +1,16 @@
+{
+  "name": "bee-js",
+  "version": "0.0.0",
+  "description": "JS Serializer inspired in JMS Serializer.",
+  "main": "index.js",
+  "scripts": {
+    "build": "./node_modules/typescript/bin/tsc --build src.tsconfig.commonjs.json",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Roberto Pintos López",
+  "license": "ISC",
+  "devDependencies": {
+    "tslint": "^5.18.0",
+    "typescript": "^3.5.2"
+  }
+}
