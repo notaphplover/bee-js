@@ -5,12 +5,18 @@
   "main": "index.js",
   "scripts": {
     "build": "./node_modules/typescript/bin/tsc --build src.tsconfig.commonjs.json",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build-and-test": "npm run build && npm run test-only",
+    "test": "npm run build-and-test",
+    "test-only": "node_modules/nyc/bin/nyc.js --reporter=lcov node ./node_modules/jasmine/bin/jasmine.js ./src/test/main.test.js"
   },
   "author": "Roberto Pintos López",
   "license": "ISC",
   "devDependencies": {
+    "@types/jasmine": "^3.3.13",
+    "jasmine": "^3.4.0",
+    "nyc": "^14.1.1",
     "tslint": "^5.18.0",
-    "typescript": "^3.5.2"
-  }
+    "typescript": "^3.5.3"
+  },
+  "dependencies": {}
 }

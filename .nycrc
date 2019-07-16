@@ -1,0 +1,8 @@
+{
+    "exclude": [
+      "src/test/**"
+    ],
+    "exclude-after-remap": false,
+    "sourceMap": true,
+    "cache": false
+}
