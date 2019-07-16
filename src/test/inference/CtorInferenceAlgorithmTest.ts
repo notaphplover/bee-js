@@ -16,6 +16,7 @@ export class CtorInferenceAlgorithmTest implements ITest {
   public performTests(): void {
     describe(this._describeName, () => {
       this._itMustBeInitializable();
+      this._itMustInferAnEntityType();
     });
   }
 
@@ -25,6 +26,20 @@ export class CtorInferenceAlgorithmTest implements ITest {
         // tslint:disable-next-line:no-unused-expression
         new CtorInferenceAlgorithm();
       }).not.toThrowError();
+      done();
+    }, MAX_SAFE_TIMEOUT);
+  }
+
+  private _itMustInferAnEntityType(): void {
+    it(this._itMustInferAnEntityType.name, async (done) => {
+      const testType = function(innerString: string) {
+        this.innerString = innerString;
+      } as unknown as new (innerString: string) => any;
+
+      const testTypeInstance = new testType('');
+      const inferenceAlgorithm = new CtorInferenceAlgorithm();
+
+      expect(inferenceAlgorithm.apply(testTypeInstance)).toBe(testType);
       done();
     }, MAX_SAFE_TIMEOUT);
   }
