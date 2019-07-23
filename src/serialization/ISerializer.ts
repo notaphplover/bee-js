@@ -15,6 +15,15 @@ export type TransformType<T> =
       {[key: string]: any};
 
 export interface ISerializer {
+
+  /**
+   * Adds a post serialize listener.
+   * @param listener Listener to add.
+   */
+  addPostSerializeListener(
+    listener: (serializedEntity: {[key: string]: any}) => void,
+  ): void;
+
   /**
    * Transforms an object in to another one in order to be serialized.
    * @param entity Entity to be serialized.

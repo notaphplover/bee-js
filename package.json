@@ -18,5 +18,7 @@
     "tslint": "^5.18.0",
     "typescript": "^3.5.3"
   },
-  "dependencies": {}
+  "dependencies": {
+    "eventemitter3": "^4.0.0"
+  }
 }

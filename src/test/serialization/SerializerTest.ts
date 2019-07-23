@@ -1,3 +1,4 @@
+import { ISerializationModel } from '../../model/ISerializationModel';
 import { IEntityResolver } from '../../resolver/IEntityResolver';
 import { Serializer } from '../../serialization/Serializer';
 import { ITest } from '../ITest';
@@ -35,6 +36,7 @@ export class SerializerTest implements ITest {
       this._itMustSerializeASimpleObject();
       this._itMustSerializeASimpleObjectWithGroups();
       this._itMustSerializeAnIterableObject();
+      this._itMustSubscribePostSerializeListeners();
     });
   }
 
@@ -244,6 +246,35 @@ export class SerializerTest implements ITest {
       };
       const result = serializer.transform(new Set([1, 2, 3]), resolver, { groups: new Set()});
       expect(result).toEqual([1, 2, 3]);
+      done();
+    });
+  }
+
+  private _itMustSubscribePostSerializeListeners(): void {
+    it(this._itMustSubscribePostSerializeListeners.name, async (done) => {
+      const serializer = new Serializer();
+      let entityFound: {[key: string]: any} = null;
+      let modelFound: ISerializationModel = null;
+      let serializedEntityFound: {[key: string]: any} = null;
+      serializer.addPostSerializeListener((event) => {
+        entityFound = event.entity;
+        modelFound = event.model;
+        serializedEntityFound = event.serializedEntity;
+      });
+      const resolver: IEntityResolver = {
+        apply: () => entityTestModel,
+      };
+      const entity = new EntityTest(1, 'one');
+      const result = serializer.transform(
+        entity,
+        resolver,
+        { groups: new Set() },
+      );
+
+      expect(entityFound).toBe(entity);
+      expect(modelFound).toBe(entityTestModel);
+      expect(serializedEntityFound).toBe(result);
+
       done();
     });
   }

@@ -1,6 +1,8 @@
+import * as EventEmitter from 'eventemitter3';
 import { ISerializationModel } from '../model/ISerializationModel';
 import { ISerializationModelProperty } from '../model/ISerializationModelPropery';
 import { IEntityResolver } from '../resolver/IEntityResolver';
+import { IPostSerializeEvent } from './event/IPostSerializeEvent';
 import { IOptimizedSerializationOptions } from './IOptimizedSerializationOptions';
 import {
   ISerializer,
@@ -9,7 +11,34 @@ import {
   TransformType,
 } from './ISerializer';
 
+/**
+ * Post serialize event alias.
+ */
+const POST_SERIALIZE_EVENT = 'post.serialize';
+
 export class Serializer implements ISerializer {
+
+  /**
+   * Event emitter
+   */
+  protected _eventEmitter: EventEmitter;
+
+  /**
+   * Creates a new Serializer.
+   */
+  public constructor() {
+    this._eventEmitter = new EventEmitter();
+  }
+
+  /**
+   * Adds a post serialize listener.
+   * @param listener Listener to add.
+   */
+  public addPostSerializeListener(
+    listener: (event: IPostSerializeEvent) => void,
+  ): void {
+    this._eventEmitter.addListener(POST_SERIALIZE_EVENT, listener);
+  }
 
   /**
    * @inheritdoc
@@ -131,6 +160,15 @@ export class Serializer implements ISerializer {
         newOptions,
       );
     }
+
+    this._eventEmitter.emit(
+      POST_SERIALIZE_EVENT,
+      {
+        entity: entity,
+        model: model,
+        serializedEntity: serializedEntity,
+      },
+    );
 
     return serializedEntity;
   }
