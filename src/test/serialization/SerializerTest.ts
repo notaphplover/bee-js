@@ -256,25 +256,31 @@ export class SerializerTest implements ITest {
       let entityFound: {[key: string]: any} = null;
       let modelFound: ISerializationModel = null;
       let serializedEntityFound: {[key: string]: any} = null;
+      let dataStore: any = null;
       serializer.addPostSerializeListener((event) => {
         entityFound = event.entity;
         modelFound = event.model;
         serializedEntityFound = event.serializedEntity;
+        dataStore = event.store;
       });
       const resolver: IEntityResolver = {
         apply: () => entityTestModel,
       };
       const entity = new EntityTest(1, 'one');
+      const store = { sampleKey: 'sampleValue' };
       const result = serializer.transform(
         entity,
         resolver,
-        { groups: new Set() },
+        {
+          groups: new Set(),
+          store: store,
+        },
       );
 
       expect(entityFound).toBe(entity);
       expect(modelFound).toBe(entityTestModel);
       expect(serializedEntityFound).toBe(result);
-
+      expect(dataStore).toEqual(store);
       done();
     });
   }

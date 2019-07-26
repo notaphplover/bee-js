@@ -61,6 +61,7 @@ export class BeeSerializer implements IApiSerializer {
         {
           groups: new Set(options.groups),
           maxDepth: options.maxDepth,
+          store: options.store,
         },
       );
   }

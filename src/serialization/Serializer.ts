@@ -167,6 +167,7 @@ export class Serializer implements ISerializer {
         entity: entity,
         model: model,
         serializedEntity: serializedEntity,
+        store: options.store,
       },
     );
 

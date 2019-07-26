@@ -7,4 +7,8 @@ export interface ISerializationOptions {
    * Maximun serialization depth.
    */
   maxDepth?: number;
+  /**
+   * Serialization data store.
+   */
+  store?: any;
 }
