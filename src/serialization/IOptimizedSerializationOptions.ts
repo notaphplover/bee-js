@@ -7,4 +7,8 @@ export interface IOptimizedSerializationOptions {
    * Maximun serialization depth.
    */
   maxDepth?: number;
+  /**
+   * Serialization data store.
+   */
+  store?: any;
 }

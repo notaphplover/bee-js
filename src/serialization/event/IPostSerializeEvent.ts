@@ -13,4 +13,8 @@ export interface IPostSerializeEvent {
    * Serialized entity.
    */
   serializedEntity: {[key: string]: any};
+  /**
+   * Serialization data store.
+   */
+  store?: any;
 }
