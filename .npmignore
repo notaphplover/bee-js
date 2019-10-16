@@ -1,15 +1,48 @@
-# Visual studio code
-/.vscode
+# Javascript source maps.
+src/**/*.js.map
+# Typescript source code
+src/**/*.ts
+src/**/*.ts.map
+!src/**/*.d.ts
+
+# npm dependencies
+/node_modules
+
+# ts build
+src.tsconfig.commonjs.json
+
+# ts lint
+tslint.json
+
+# npm development scripts
+/scripts
+
+# Github config
+/.github
+
+# Github docs
+CODE_OF_CONDUCT.md
+CONTRIBUTING.md
+
+# Docs for GitHub pages
+/docs
 
 # IstambulJS coverage reports
 /.nyc_output
 /coverage
 
-# npm dependencies
-/node_modules
+# Tests
+/src/test
+
+# Prettier config
+.prettierignore
+.prettierrc
+
+# Travis build
+.travis.yml
 
 # coveralls config
 .coveralls.yml
 
-# docker test volumes
-/docker/mysql/data
+# Visual studio code
+/.vscode
